@@ -49,11 +49,7 @@ app.post("/reg_numbers", function(req, res) {
       displayReg: regList
 
     })
-    // var reg = "";
-    // reg = regNumber;
-    // res.render("home", {
-    //     displayReg: reg
-    // })
+  
 });
 
 //start the server
