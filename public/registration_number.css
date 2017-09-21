@@ -1,0 +1,21 @@
+h1 {
+  font-size: 50px;
+  text-align: center;
+  text-shadow: 2px 2px #ff0000
+}
+.choices{
+    text-align: center;
+    background-color: lightgreen;
+}
+
+ul{
+    background-color: yellow;
+    border: solid black;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    list-style: none;
+    text-align: center;
+    text-transform: uppercase;
+}
