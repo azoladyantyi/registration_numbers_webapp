@@ -1,20 +1,31 @@
 <h1>Registration Number:</h1>
-<form method="post" action="/reg_numbers" >
+<form method="post" action="/reg_numbers">
 
     <div class="choices">
-      <input type="text" name="name" value=""placeholder="type the registration number" >
-      <button type="submit" name="name">ADD</button>  <br><br>
-      <input type="radio" name="" value="">Malmesbury</input>
-      <input type="radio" name="" value="">Bellville</input>
-      <input type="radio" name="" value="">Cape Town</input>
-      <input type="radio" name="" value="">All</input>
-      <!-- <button type="submit" name="button">Show All</button> -->
-    </div>
-     <center>{{#each displayReg}}
-     <ul>
-      <li>{{this}}</li>
-     </ul>
-     {{/each}}
-   </center>
+        <input type="text" name="name" value="" placeholder="type the registration number">
+        <button type="submit" name="name">ADD</button> <br><br>
 
+    </div>
 </form>
+<form class="" action="/selectTown" method="post">
+  <center>
+  <input type="radio" name="town" value="CK">Malmesbury</input>
+  <input type="radio" name="town" value="CY">Bellville</input>
+  <input type="radio" name="town" value="CA">Cape Town</input>
+  <!-- <input type="radio" name="town" value="All">All</input> -->
+  <button type="submit" name="town">filter</button>
+</center>
+</form>
+
+<form class="" action="/all" method="post">
+  <button type="submit" name="button">Show All</button>
+</form>
+
+
+<center>
+    {{#each displayReg}}
+      <div class="displayRe">
+    {{this.name}}
+  </div><br><br>
+    {{/each}}
+</center>

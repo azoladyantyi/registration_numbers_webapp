@@ -26,38 +26,98 @@ app.use(form.urlencoded({
 app.set("view engine", "handlebars")
 
 mongoose.connect('mongodb://localhost/registration');
- var db = mongoose.connection;
- //throw err
+var db = mongoose.connection;
+//throw err
 
- db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', console.error.bind(console, 'connection error:'));
 
 app.get("/", function(req, res) {
-  var regNumber = req.body.name;
-    res.render("home");
+    var reg = req.body.name;
+    models.find({}, function(err, results) {
+        if (err) {
+            console.log(err);
+        }
+        res.render("home", {
+            displayReg: results
+        });
+    })
 });
-//
 var regList = [];
 app.post("/reg_numbers", function(req, res) {
-  var regNumber = req.body.name;
-
-  regList.push(regNumber)
-  models.create({name: regNumber}, function(err, result){
-      if (err) {return (err)}
-  });
-
-  res.render('home',{
-      displayReg: regList
-
+    var reg = req.body.name;
+    models.findOne({
+        name: reg
+    }, function(err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (!result) {
+                models.create({
+                    name: reg
+                }, function(err, result) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        result.save(function(err, results) {
+                            console.log(results);
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                res.redirect('/');
+                            }
+                        })
+                    }
+                });
+            }
+        }
     })
-  
+
 });
 
+
+//the function to filter the towns
+app.post("/selectTown", function(req, res) {
+  var reg = req.body.town;
+  console.log(reg);
+  models.find({
+    name: {
+            $regex: reg
+
+        }
+  }, function(err, results) {
+      if (err) {
+          console.log(err);
+      }
+      res.render("home", {
+        displayReg: reg
+      });
+  })
+
+
+});
+
+app.post("/all", function(req, res) {
+
+  models.find({}, function(err, all) {
+      if (err) {
+          console.log(err);
+      }
+      res.render("home", {
+          displayReg: all
+      });
+  })
+
+
+});
+
+
+
 //start the server
-var server = app.listen(3000, function () {
+var server = app.listen(3000, function() {
 
- var host = server.address().address;
- var port = server.address().port;
+    var host = server.address().address;
+    var port = server.address().port;
 
- console.log('Registration web app listening at http://%s:%s', host, port);
+    console.log('Registration web app listening at http://%s:%s', host, port);
 
 });
