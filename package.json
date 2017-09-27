@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "mocha"
   },
   "author": "Azola",
@@ -13,5 +14,14 @@
     "express": "^4.15.4",
     "express-handlebars": "^3.0.0",
     "mongoose": "^4.11.11"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azoladyantyi/registration_numbers_webapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/azoladyantyi/registration_numbers_webapp/issues"
+  },
+  "homepage": "https://github.com/azoladyantyi/registration_numbers_webapp#readme"
 }

@@ -44,7 +44,10 @@ app.get("/", function(req, res) {
 });
 var regList = [];
 app.post("/reg_numbers", function(req, res) {
-    var reg = req.body.name;
+    var reg = req.body.regNumber;
+    if (reg === "") {
+      res.redirect('/')
+    }
     models.findOne({
         name: reg
     }, function(err, result) {
@@ -79,17 +82,19 @@ app.post("/reg_numbers", function(req, res) {
 app.post("/selectTown", function(req, res) {
   var reg = req.body.town;
   console.log(reg);
+
   models.find({
     name: {
-            $regex: reg
-
+            '$regex': reg,
+            '$options' : "i"   // find incrementally - find all matches!!!
         }
   }, function(err, results) {
       if (err) {
           console.log(err);
       }
+      console.log(results.length);
       res.render("home", {
-        displayReg: reg
+        displayReg: results
       });
   })
 
