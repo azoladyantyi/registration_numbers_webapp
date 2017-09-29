@@ -4,7 +4,6 @@ const form = require('body-parser');
 // const flash = require('express-flash');
 // const session = require('express-session');
 const bodyParser = require('body-parser');
-const mongoURL = process.env.MONGO_DB_URL || "mongodb://localhost/registration";
 const models = require("./models");
 var regNumbers = models();
 // const models = Models(mongoURL);
@@ -24,12 +23,6 @@ app.use(form.urlencoded({
     extended: true
 }));
 app.set("view engine", "handlebars")
-
-mongoose.connect('mongodb://localhost/registration');
-var db = mongoose.connection;
-//throw err
-
-db.on('error', console.error.bind(console, 'connection error:'));
 
 app.get("/", function(req, res) {
     var reg = req.body.name;
@@ -118,11 +111,13 @@ app.post("/all", function(req, res) {
 
 
 //start the server
-var server = app.listen(3000, function() {
+app.set('port', (process.env.PORT || 5000));
 
-    var host = server.address().address;
-    var port = server.address().port;
+app.use(function(err, req, res) {
+    res.status(500).send(err.stack)
+});
 
-    console.log('Registration web app listening at http://%s:%s', host, port);
+app.listen(app.get('port'), function() {
+    console.log('Node app is running on port' + app.get('port'));
 
 });
