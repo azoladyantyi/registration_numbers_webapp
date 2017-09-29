@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const mongoURL = process.env.MONGO_DB_URL || "mongodb://localhost/registration";
-const MongoURL =process.env.MONGO_DB_URL || "mongodb://localhost/registration";
 mongoose.connect(mongoURL,{
   regAvailable: true
 });
-console.log("Connecting to MongoURL : " + MongoURL);
+console.log("Connecting to MongoURL : " + mongoURL);
 const regNumbers = mongoose.Schema({
 
   name: String
