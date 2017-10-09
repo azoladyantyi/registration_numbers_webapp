@@ -74,18 +74,18 @@ app.post("/reg_numbers", function(req, res) {
 //the function to filter the towns
 app.post("/selectTown", function(req, res) {
   var reg = req.body.town;
-  console.log(reg);
+  // console.log(reg);
 
   models.find({
     name: {
-            '$regex': reg,
-            '$options' : "i"   // find incrementally - find all matches!!!
+            $regex: reg,
+            $options : "i"   // find incrementally - find all matches!!!
         }
   }, function(err, results) {
       if (err) {
           console.log(err);
       }
-      console.log(results.length);
+      // console.log(results.length);
       res.render("home", {
         displayReg: results
       });
@@ -114,7 +114,7 @@ app.post("/all", function(req, res) {
 app.set('port', (process.env.PORT || 5000));
 
 app.use(function(err, req, res) {
-    res.status(500).send(err.stack)
+    // res.status(500).send(err.stack)
 });
 
 app.listen(app.get('port'), function() {
